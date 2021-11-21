@@ -31,11 +31,6 @@ class Glacier:
         if not isinstance(unit, str):
             raise TypeError("unit should be a string")
         
-        if not isinstance(lat, float):
-            raise TypeError("latitude should be a float")
-            
-        if not isinstance(lon, float):
-            raise TypeError("longitude should be a float")
 
         #Raise value errors
         if len(self.glacier_id) != 5:
@@ -175,13 +170,6 @@ class GlacierCollection:
 
     def find_nearest(self, lat, lon, n = 5):
         """Get the n glaciers closest to the given coordinates."""
-        
-        #Type errors
-        if not isinstance(lat, float):
-            raise TypeError("latitude should be a float")
-            
-        if not isinstance(lon, float):
-            raise TypeError("longitude should be a float")
 
         #Raise value errors
         if not -90.0 <= lat <= 90.0:
@@ -302,6 +290,7 @@ class GlacierCollection:
                percentage + '% of glaciers shrunk in their last measurement.')
 
     def plot_extremes(self, output_path):
+        
         #get the glacier objects that shrunk and grew the most
         glacier_growth = self.sort_by_latest_mass_balance(1, reverse = False)
         glacier_shrunk = self.sort_by_latest_mass_balance(1, reverse = True)
@@ -324,4 +313,3 @@ class GlacierCollection:
         plt.title('Extreme glaciers in the collection')
         plt.legend()
         plt.savefig(output_path + 'plot_extremes.png')
-
