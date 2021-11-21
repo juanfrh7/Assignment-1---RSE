@@ -172,6 +172,13 @@ class GlacierCollection:
     def find_nearest(self, lat, lon, n):
         """Get the n glaciers closest to the given coordinates."""
         
+        #Raise value errors
+        if not -90.0 <= lat <= 90.0:
+            raise ValueError("The latitude is not within the accepted range [-90, 90]")
+            
+        if not -180 <= lon <= 180:
+            raise ValueError("The longitude is not within the accepted range [-180, 180]")
+
         distances = []   #list of all the distances to the given coordinates
         
         for i in range(len(self.latitude_list)):
