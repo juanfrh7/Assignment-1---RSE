@@ -184,7 +184,32 @@ class GlacierCollection:
 
     def sort_by_latest_mass_balance(self, n, reverse):
         """Return the N glaciers with the highest area accumulated in the last measurement."""
-        raise NotImplementedError
+        last_mass_balance_measurement = []   #list of last mass balance measurement per glacier
+        
+        #get all the values to the list
+        for i in range(len(self.glacier_classes)):
+            if self.glacier_classes[i].mass_balance == []:
+                continue
+            else:
+                last_mass_balance_measurement.append([i, self.glacier_classes[i].mass_balance[-1]])
+
+        
+        #sort the lists in increasing order
+        last_mass_balance_measurement.sort(key=lambda tup: tup[1])
+        
+        list_of_classes = []
+        for i in range(1, n+1):
+            
+            #retrieve the n classes with smallest change
+            if reverse == True:
+                list_of_classes.append(self.glacier_classes[last_mass_balance_measurement[i-1][0]])
+
+            #retrieve the n classes with greatest change
+            else:
+                list_of_classes.append(self.glacier_classes[last_mass_balance_measurement[-i][0]])
+
+        return list_of_classes
+            
 
     def summary(self):
         raise NotImplementedError
