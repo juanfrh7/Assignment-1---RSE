@@ -51,7 +51,7 @@ class Glacier:
             raise ValueError("The unit should be a 2 string")
 
     def add_mass_balance_measurement(self, year, mass_balance, boolean):
-    """Add the mass balance measurements depending if its partial or total measurements"""
+     """Add the mass balance measurements depending if its partial or total measurements"""
         
         #if the year is recorded, we check if the previous value is partial or total measurement
         if year in self.years:
@@ -172,6 +172,13 @@ class GlacierCollection:
     def find_nearest(self, lat, lon, n):
         """Get the n glaciers closest to the given coordinates."""
         
+        #Type errors
+        if not isinstance(lat, float):
+            raise TypeError("latitude should be a float")
+            
+        if not isinstance(lon, float):
+            raise TypeError("longitude should be a float")
+
         #Raise value errors
         if not -90.0 <= lat <= 90.0:
             raise ValueError("The latitude is not within the accepted range [-90, 90]")
