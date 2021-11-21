@@ -2,6 +2,8 @@ import pathlib
 from pathlib import Path
 import matplotlib.pyplot as plt
 import csv
+import utils
+from utils import haversine_distance
 
 class Glacier:
     def __init__(self, glacier_id, name, unit, lat, lon, code):
