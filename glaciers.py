@@ -1,8 +1,13 @@
+import pathlib
+from pathlib import Path
+import matplotlib.pyplot as plt
+import csv
+
 class Glacier:
     def __init__(self, glacier_id, name, unit, lat, lon, code):
         raise NotImplementedError
 
-    def add_mass_balance_measurement(self, year, mass_balance):
+    def add_mass_balance_measurement(self, year, mass_balance, boolean):
         raise NotImplementedError
 
     def plot_mass_balance(self, output_path):
