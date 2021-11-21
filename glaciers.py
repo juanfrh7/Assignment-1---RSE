@@ -25,7 +25,16 @@ class Glacier:
 class GlacierCollection:
 
     def __init__(self, file_path):
-        raise NotImplementedError
+        #initialize the data
+        self.glacier_ids = []   #list of all the glacier ids
+        self.glacier_classes = []   #list of all the glacier objects
+        self.name = []   #list of all the glacier names
+        self.latitude_list = []   #list of all the glacier latitudes
+        self.longitude_list = []   #list of all the glacier longitudes
+        self.code = []   #list of all the glacier codes
+        self.units = []   #list of all the glacier units
+        self.year = []   #list of all the glacier years
+        self.mass_balance = []   #list of all the glacier mass_balances
 
     def read_mass_balance_data(self, file_path):
         raise NotImplementedError
