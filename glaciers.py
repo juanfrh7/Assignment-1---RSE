@@ -121,7 +121,24 @@ class GlacierCollection:
 
     def find_nearest(self, lat, lon, n):
         """Get the n glaciers closest to the given coordinates."""
-        raise NotImplementedError
+        
+        distances = []   #list of all the distances to the given coordinates
+        
+        for i in range(len(self.latitude_list)):
+            #calculate the distance using the haversine distance function
+            distance = haversine_distance(lat, lon, self.latitude_list[i], self.longitude_list[i])
+            distances.append((self.name[i], distance))
+
+        #sort the list of distances
+        distances.sort(key=lambda tup: tup[1])
+        
+        neighbors = []   #list of closest neighbours
+        
+        #append the n closest neighbors to the list
+        for i in range(n):
+            neighbors.append(distances[i][0])
+
+        return neighbors
     
     def filter_by_code(self, code_pattern):
         """Return the names of glaciers whose codes match the given pattern."""
