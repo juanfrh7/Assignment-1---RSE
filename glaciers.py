@@ -5,6 +5,10 @@ import csv
 import utils
 from utils import haversine_distance
 
+location = ''
+filepath1 = Path(location + 'sheet-A.csv')
+filepath2 = Path(location + 'sheet-EE.csv')
+
 class Glacier:
     def __init__(self, glacier_id, name, unit, lat, lon, code):
         #initialise the data
@@ -51,7 +55,7 @@ class Glacier:
             raise ValueError("The unit should be a 2 string")
 
     def add_mass_balance_measurement(self, year, mass_balance, boolean):
-     """Add the mass balance measurements depending if its partial or total measurements"""
+        """Add the mass balance measurements depending if its partial or total measurements"""
         
         #if the year is recorded, we check if the previous value is partial or total measurement
         if year in self.years:
@@ -169,7 +173,7 @@ class GlacierCollection:
                     index1 = self.glacier_ids.index(glacier_id)
                     self.glacier_classes[index1].add_mass_balance_measurement(year, float(mass_balance), boolean)
 
-    def find_nearest(self, lat, lon, n):
+    def find_nearest(self, lat, lon, n = 5):
         """Get the n glaciers closest to the given coordinates."""
         
         #Type errors
@@ -320,3 +324,4 @@ class GlacierCollection:
         plt.title('Extreme glaciers in the collection')
         plt.legend()
         plt.savefig(output_path + 'plot_extremes.png')
+
