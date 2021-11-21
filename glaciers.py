@@ -251,4 +251,25 @@ class GlacierCollection:
                percentage + '% of glaciers shrunk in their last measurement.')
 
     def plot_extremes(self, output_path):
-        raise NotImplementedError
+        #get the glacier objects that shrunk and grew the most
+        glacier_growth = self.sort_by_latest_mass_balance(1, reverse = False)
+        glacier_shrunk = self.sort_by_latest_mass_balance(1, reverse = True)
+
+        #Define the variables for the glacier that grew the most
+        y1 = glacier_growth[0].mass_balance
+        x1 = glacier_growth[0].years
+        glacier1 = glacier_growth[0].name
+        
+        #Define the variables for the glacier that shrunk the most
+        y2 = glacier_shrunk[0].mass_balance
+        x2 = glacier_shrunk[0].years
+        glacier2 = glacier_shrunk[0].name
+        
+        #plot everything
+        plt.plot(x1, y1, label = glacier1 + ' is the glacier that grew the most')
+        plt.plot(x2, y2, label = glacier2 + ' is the glacier that shrunk the most')
+        plt.xlabel("Years")
+        plt.ylabel("Mass balance [mm.w.e]")
+        plt.title('Extreme glaciers in the collection')
+        plt.legend()
+        plt.savefig(output_path + 'plot_extremes.png')
