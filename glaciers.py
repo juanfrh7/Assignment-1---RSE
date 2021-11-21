@@ -36,6 +36,29 @@ class GlacierCollection:
         self.year = []   #list of all the glacier years
         self.mass_balance = []   #list of all the glacier mass_balances
 
+        #load the data from sheet A
+        with open(file_path, encoding = "utf8") as csv_file:
+            csv_reader = csv.DictReader(csv_file, delimiter = ',')
+            for row in csv_reader:
+                id_glacier = str(row['WGMS_ID'])
+                name = str(row['NAME'])
+                unit = str(row['POLITICAL_UNIT'])
+                lat = float(row['LATITUDE'])
+                lon = float(row['LONGITUDE'])
+                prim_class = str(row['PRIM_CLASSIFIC'])
+                form = str(row['FORM'])
+                frontal_chars = str(row['FRONTAL_CHARS'])
+                code = prim_class + form + frontal_chars
+                    
+                #append values to a list
+                self.name.append(name)
+                self.glacier_ids.append(id_glacier)
+                self.latitude_list.append(lat)
+                self.longitude_list.append(lon)
+                self.code.append(code)
+                self.units.append(unit)
+                self.glacier_classes.append(Glacier(id_glacier, name, unit, lat, lon, code))
+
     def read_mass_balance_data(self, file_path):
         raise NotImplementedError
 
