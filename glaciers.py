@@ -16,7 +16,31 @@ class Glacier:
         self.mass_balance = []
 
     def add_mass_balance_measurement(self, year, mass_balance, boolean):
-        raise NotImplementedError
+    """Add the mass balance measurements depending if its partial or total measurements"""
+        
+        #if the year is recorded, we check if the previous value is partial or total measurement
+        if year in self.years:
+            index = self.years.index(year)
+            
+            #if its a total measurement, we dont append
+            if self.mass_balance[index] == True:
+                return
+            
+            #if its a partial measurement, we check if the new value is partial or total measurement
+            else:
+                
+                #if it's total, we ignore it assuming it appears at the end
+                if boolean == True:
+                    return
+
+                #if it's partial, we add it to the previous value
+                else:
+                    self.mass_balance[index] = self.mass_balance[index] + mass_balance
+                    
+        #if year is not recorded, we append the new values
+        else:
+            self.years.append(year)
+            self.mass_balance.append(mass_balance)
 
     def plot_mass_balance(self, output_path):
         raise NotImplementedError
