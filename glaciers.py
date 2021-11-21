@@ -61,7 +61,7 @@ class GlacierCollection:
 
     def read_mass_balance_data(self, file_path):
         """Load the data from sheet EE""" 
-        
+
         #load the data
         with open(file_path, encoding = "utf8") as csv_file:
             csv_reader = csv.DictReader(csv_file, delimiter = ',')
@@ -85,6 +85,15 @@ class GlacierCollection:
                 #append data to list
                 self.year.append(year)
                 self.mass_balance.append(float(mass_balance))
+
+                boolean = False
+                if bound == '9999':
+                    boolean = True
+                       
+                #append mass balance measurement to each glacier object
+                if glacier_id in self.glacier_ids:
+                    index1 = self.glacier_ids.index(glacier_id)
+                    self.glacier_classes[index1].add_mass_balance_measurement(year, float(mass_balance), boolean)
 
     def find_nearest(self, lat, lon, n):
         """Get the n glaciers closest to the given coordinates."""
