@@ -209,10 +209,31 @@ class GlacierCollection:
                 list_of_classes.append(self.glacier_classes[last_mass_balance_measurement[-i][0]])
 
         return list_of_classes
-            
 
     def summary(self):
-        raise NotImplementedError
+        number_glaciers = str(len(self.name))  #get the number of glaciers
+        year = str(min(self.year))  #get the earliest year measurement
+        mass_balances = []
+        count = 0   #frequency of negative mass balance measurement
+        total = 0   #total number of mass balanace measurements
+        
+        #iterate over all glaciers to get the frequency
+        for i in range(len(self.glacier_classes)):
+            if self.glacier_classes[i].mass_balance == []:
+                continue
+            else:
+                if self.glacier_classes[i].mass_balance[-1] < 0:
+                    count += 1
+                    total += 1
+                else:
+                    total += 1
+        
+        #calculate the percentage
+        percentage = str(int(((count / total)* 100)))
+        
+        return('This collection has ' + number_glaciers + ' glaciers',
+                'The earliest measurement was in ' + year,
+               percentage + '% of glaciers shrunk in their last measurement.')
 
     def plot_extremes(self, output_path):
         raise NotImplementedError
