@@ -5,7 +5,15 @@ import csv
 
 class Glacier:
     def __init__(self, glacier_id, name, unit, lat, lon, code):
-        raise NotImplementedError
+        #initialise the data
+        self.glacier_id = glacier_id
+        self.name = name
+        self.unit = unit
+        self.lat = lat
+        self.lon = lon
+        self.code = code
+        self.years = []
+        self.mass_balance = []
 
     def add_mass_balance_measurement(self, year, mass_balance, boolean):
         raise NotImplementedError
