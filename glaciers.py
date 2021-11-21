@@ -144,7 +144,43 @@ class GlacierCollection:
     
     def filter_by_code(self, code_pattern):
         """Return the names of glaciers whose codes match the given pattern."""
-        raise NotImplementedError
+        list_names = []   #list of names given its code
+        list_of_digits = [str(d) for d in str(code_pattern)]   #list of the code's digits 
+        count = list_of_digits.count('?')   #number of times ? appears in the code
+        
+        #Case 1 = ? does not appear in the code
+        if count == 0:
+            for i in range(len(self.code)):
+                if list_of_digits[0] == self.code[i][0] and list_of_digits[1] == self.code[i][1] and list_of_digits[2] == self.code[i][2]:
+                    list_names.append(self.name[i])
+                    
+        #Case 2 = ? appears once in the code           
+        elif count == 1:
+            indices = []
+            for i in range(len(list_of_digits)):
+                if list_of_digits[i] != '?':
+                    indices.append(i)
+                    
+            for i in range(len(self.code)):
+                if list_of_digits[indices[0]] == self.code[i][indices[0]] and list_of_digits[indices[1]] == self.code[i][indices[1]]:
+                    list_names.append(self.name[i])
+                    
+        #Case 3 = ? appears twice in the code              
+        elif count == 2:
+            indices = []
+            for i in range(len(list_of_digits)):
+                if list_of_digits[i] != '?':
+                    indices.append(i)
+                    
+            for i in range(len(self.code)):
+                if list_of_digits[indices[0]] == self.code[i][indices[0]]:
+                    list_names.append(self.name[i])
+
+        #Case 3 = we have a ??? code           
+        else:
+            list_names = self.name
+
+        return list_names
 
     def sort_by_latest_mass_balance(self, n, reverse):
         """Return the N glaciers with the highest area accumulated in the last measurement."""
