@@ -17,6 +17,23 @@ class Glacier:
         self.years = []
         self.mass_balance = []
 
+        if not isinstance(glacier_id, str):
+            raise TypeError("glacier id should be a string")
+        
+        if not isinstance(name, str):
+            raise TypeError("name should be a string")
+        
+        if not isinstance(unit, str):
+            raise TypeError("unit should be a string")
+        
+        if not isinstance(lat, float):
+            raise TypeError("latitude should be a float")
+            
+        if not isinstance(lon, float):
+            raise TypeError("longitude should be a float")
+
+
+
     def add_mass_balance_measurement(self, year, mass_balance, boolean):
     """Add the mass balance measurements depending if its partial or total measurements"""
         
