@@ -45,8 +45,23 @@ class Glacier:
             self.mass_balance.append(mass_balance)
 
     def plot_mass_balance(self, output_path):
-        raise NotImplementedError
-
+        """Plot the mass balance measurements againts the years"""
+        
+        #Define the variables
+        x = self.years
+        y = self.mass_balance
+        glacier = self.name
+        glacier_id = self.glacier_id
+        
+        #if there are not mass balance measurements for the glacier, return message
+        if self.years == []:
+            return 'No mass balance data for glacier ' + glacier + ' with id ' + glacier_id
+        
+        plt.plot(x, y)
+        plt.xlabel("Years")
+        plt.ylabel("Mass balance [mm.w.e]")
+        plt.title('Mass balance measurement for ' + glacier + ' with ID ' + glacier_id)
+        plt.savefig(output_path + 'mass_balance.png')
         
 class GlacierCollection:
 
