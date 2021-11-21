@@ -2,6 +2,7 @@ import pathlib
 from pathlib import Path
 import matplotlib.pyplot as plt
 import csv
+import datetime
 import utils
 from utils import haversine_distance
 
@@ -148,7 +149,7 @@ class GlacierCollection:
                     raise TypeError("year should be an integer")
                     
                 #if year is in the future, raise error
-                if year > 2022:
+                if year > datetime.datetime.now().year:
                     raise ValueError("The year is in the future")
         
                 #do not take into account empty mass balance measurements
