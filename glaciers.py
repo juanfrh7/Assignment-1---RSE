@@ -17,6 +17,7 @@ class Glacier:
         self.years = []
         self.mass_balance = []
 
+        #Define type errors
         if not isinstance(glacier_id, str):
             raise TypeError("glacier id should be a string")
         
@@ -32,7 +33,22 @@ class Glacier:
         if not isinstance(lon, float):
             raise TypeError("longitude should be a float")
 
+        #Raise value errors
+        if len(self.glacier_id) != 5:
+            raise ValueError("The Glacier ID should be a 5 digit string")
+            
+        if not -90.0 <= lat <= 90.0:
+            raise ValueError("The latitude is not within the accepted range [-90, 90]")
+            
+        if not -180 <= lon <= 180:
+            raise ValueError("The longitude is not within the accepted range [-180, 180]")
+            
+        if unit != '99':
+            if unit.upper() != unit:
+                raise ValueError("The unit should be in capital letters")
 
+        if len(unit) != 2:
+            raise ValueError("The unit should be a 2 string")
 
     def add_mass_balance_measurement(self, year, mass_balance, boolean):
     """Add the mass balance measurements depending if its partial or total measurements"""
