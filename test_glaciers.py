@@ -66,4 +66,15 @@ def test_filter_code():
     assert collection.filter_by_code('???') == collection.name
 
 def test_sort_latest():
-    raise NotImplementedError
+    #create a collection
+    collection = GlacierCollection(filepath1)
+    collection.read_mass_balance_data(filepath2)
+
+    #check when reverse is true
+    x = collection.sort_by_latest_mass_balance(1, reverse = True)
+    assert x[0].name == 'ARTESONRAJU'
+
+    #check when reverse is true
+    x = collection.sort_by_latest_mass_balance(1, reverse = False)
+    assert x[0].name == 'STORSTEINSFJELLBREEN'
+    
