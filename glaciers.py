@@ -31,7 +31,6 @@ class Glacier:
         
         if not isinstance(unit, str):
             raise TypeError("unit should be a string")
-        
 
         #Raise value errors
         if len(self.glacier_id) != 5:
@@ -123,6 +122,9 @@ class GlacierCollection:
                 form = str(row['FORM'])
                 frontal_chars = str(row['FRONTAL_CHARS'])
                 code = prim_class + form + frontal_chars
+
+                #we dont need to raise errors as they will appear
+                #when creating the Glacier object
                     
                 #append values to a list
                 self.name.append(name)
@@ -151,6 +153,10 @@ class GlacierCollection:
                 #if year is in the future, raise error
                 if year > datetime.datetime.now().year:
                     raise ValueError("The year is in the future")
+
+                #if glacier id is not registered, raise error
+                if glacier_id not in self.glacier_ids:
+                    raise ValueError('This glacier is not recognised')
         
                 #do not take into account empty mass balance measurements
                 if mass_balance == '':
