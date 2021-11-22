@@ -35,7 +35,35 @@ def test_add_mass_balance():
     assert collection.glacier_classes[0].mass_balance == [-793.0, -418.0, 332.0, -7886.0, -2397.0, -13331.0]
 
 def test_filter_code():
-    raise NotImplementedError
+    #create a collection
+    collection = GlacierCollection(filepath1)
+    collection.read_mass_balance_data(filepath2)
+
+    #check when code is an integer
+    assert collection.filter_by_code(638) == ['AGUA NEGRA', 'BROWN SUPERIOR', 'CONCONTA NORTE', 'LAGO DEL DESIERTO I', 
+                                                'LAGO DEL DESIERTO II', 'LAGO DEL DESIERTO III', 'LOS AMARILLOS', 'POTRERILLOS', 
+                                                'TORTOLAS', 'AMARILLO', 'NINGCHAN GLACIER NO.1', 'VESTRE MEMURUBREEN']
+
+    #check when code is an string with no ?
+    assert collection.filter_by_code('638') == ['AGUA NEGRA', 'BROWN SUPERIOR', 'CONCONTA NORTE', 'LAGO DEL DESIERTO I', 
+                                                'LAGO DEL DESIERTO II', 'LAGO DEL DESIERTO III', 'LOS AMARILLOS', 'POTRERILLOS', 
+                                                'TORTOLAS', 'AMARILLO', 'NINGCHAN GLACIER NO.1', 'VESTRE MEMURUBREEN']
+
+    #check when code is an string with one ?
+    assert collection.filter_by_code('6?8') == ['AGUA NEGRA', 'BROWN SUPERIOR', 'CANITO', 'CONCONTA NORTE', 'LAGO DEL DESIERTO I', 
+                                                'LAGO DEL DESIERTO II', 'LAGO DEL DESIERTO III', 'LOS AMARILLOS', 'POTRERILLOS', 
+                                                'TORTOLAS', 'ADLER', 'PERS, VADRET', 'AMARILLO', 'TRONQUITOS', 'NINGCHAN GLACIER NO.1', 
+                                                'RULUNG', 'HALSJOKULL', 'BLAAISEN', 'VESTRE MEMURUBREEN']
+
+    #check when code is an string with two ?
+    assert collection.filter_by_code('6??') == ['GRAN CAMPO NEVADO (GCN)', 'DRANGAJOKULL ICE CAP', 'EIRIKSJOKULL', 'EYJAFJALLAJOKULL', 
+                                                'HOFSJOKUL_EYSTRI', 'HOFSJOKULL ICE CAP', 'HRUTFELL', 'LANGJOKULL ICE CAP', 'MYRDALSJOKULL ICE CAP', 
+                                                'ORAEFAJOKULL', 'SNAEFELLSJOKULL', 'THRANDARJOKULL', 'TINDFJALLAJOKULL', 'TORFAJOKULL', 
+                                                'TUNGNAFELLSJOKULL', 'VATNAJOKULL', 'WESTERN VATNAJOKULL ICE CAP', 'MIDTRE FOLGEFONNA', 'NORDRE FOLGEFON', 
+                                                'COROPUNA']
+                                            
+    #check when code is an string with three ?
+    assert collection.filter_by_code('???') == collection.name
 
 def test_sort_latest():
     raise NotImplementedError
