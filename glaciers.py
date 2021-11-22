@@ -94,7 +94,7 @@ class Glacier:
         plt.xlabel("Years")
         plt.ylabel("Mass balance [mm.w.e]")
         plt.title('Mass balance measurement for ' + glacier + ' with ID ' + glacier_id)
-        plt.savefig(output_path + 'mass_balance.png')
+        plt.savefig(output_path)
         
 class GlacierCollection:
 
@@ -313,4 +313,4 @@ class GlacierCollection:
         plt.ylabel("Mass balance [mm.w.e]")
         plt.title('Extreme glaciers in the collection')
         plt.legend()
-        plt.savefig(output_path + 'plot_extremes.png')
+        plt.savefig(output_path)
