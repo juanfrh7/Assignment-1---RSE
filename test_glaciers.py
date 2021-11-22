@@ -9,7 +9,7 @@ location = ''
 filepath1 = Path(location + 'sheet-A.csv')
 filepath2 = Path(location + 'sheet-EE.csv')
 
-def test_error_messages():
+def test_variables():
     #define variables
     glacier_id = '17363'
     name = 'Any name'
@@ -66,7 +66,7 @@ def test_sort_latest():
     x = collection.sort_by_latest_mass_balance(1, reverse = True)
     assert x[0].name == 'ARTESONRAJU'
 
-    #check when reverse is true
+    #check when reverse is false
     y = collection.sort_by_latest_mass_balance(1, reverse = False)
     assert y[0].name == 'STORSTEINSFJELLBREEN'
     
@@ -123,7 +123,7 @@ def test_wrong_unit_length():
     with raises(ValueError, match =("The unit should be a two charachter string")):
         Glacier(glacier_id, name, unit, lat, lon, code)
 
-def test_wrong_unit_format():
+def test_unit_format():
     #define variables
     glacier_id = '04392'
     name = 'AGUA NEGRA'

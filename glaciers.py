@@ -164,7 +164,7 @@ class GlacierCollection:
                     
                 #append data to list
                 self.year.append(year)
-                self.mass_balance.append(float(mass_balance))
+                self.mass_balance.append(int(mass_balance))
 
                 boolean = False
                 if bound == '9999':
@@ -173,7 +173,7 @@ class GlacierCollection:
                 #append mass balance measurement to each glacier object
                 if glacier_id in self.glacier_ids:
                     index1 = self.glacier_ids.index(glacier_id)
-                    self.glacier_classes[index1].add_mass_balance_measurement(year, float(mass_balance), boolean)
+                    self.glacier_classes[index1].add_mass_balance_measurement(year, int(mass_balance), boolean)
 
     def find_nearest(self, lat, lon, n = 5):
         """Get the n glaciers closest to the given coordinates."""
