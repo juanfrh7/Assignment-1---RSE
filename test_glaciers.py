@@ -1,4 +1,5 @@
 import pytest
+from pytest import raises
 import glaciers
 import pathlib
 from pathlib import Path
@@ -72,13 +73,39 @@ def test_sort_latest():
 #define negative tests
 def test_wrong_glacier_id_length():
     #define variables
-    glacier_id = '01763'
-    name = 'Any name'
-    unit = 'FG'
-    lat = 300
-    lon = 39.87
+    glacier_id = '0432'
+    name = 'AGUA NEGRA'
+    unit = 'AR'
+    lat = 30
+    lon = -69.80940
     code = 638
 
     #create a glacier object with the variables
-    with pytest.raises(ValueError, match = ("The latitude is not within the accepted range [-90, 90]")):
+    with raises(ValueError, match =("The Glacier ID should be a five digit string")):
+        Glacier(glacier_id, name, unit, lat, lon, code)
+
+def test_wrong_lat_value():
+    #define variables
+    glacier_id = '04392'
+    name = 'AGUA NEGRA'
+    unit = 'AR'
+    lat = 300
+    lon = -69.80940
+    code = 638
+
+    #create a glacier object with the variables
+    with raises(ValueError, match =('The latitude is not within the accepted range')):
+        Glacier(glacier_id, name, unit, lat, lon, code)
+
+def test_wrong_lon_value():
+    #define variables
+    glacier_id = '04392'
+    name = 'AGUA NEGRA'
+    unit = 'AR'
+    lat = 30
+    lon = -639.80940
+    code = 638
+
+    #create a glacier object with the variables
+    with raises(ValueError, match =('The longitude is not within the accepted range')):
         Glacier(glacier_id, name, unit, lat, lon, code)
