@@ -63,9 +63,6 @@ def test_filter_code():
                                                 'ORAEFAJOKULL', 'SNAEFELLSJOKULL', 'THRANDARJOKULL', 'TINDFJALLAJOKULL', 'TORFAJOKULL', 
                                                 'TUNGNAFELLSJOKULL', 'VATNAJOKULL', 'WESTERN VATNAJOKULL ICE CAP', 'MIDTRE FOLGEFONNA', 'NORDRE FOLGEFON', 
                                                 'COROPUNA']
-                                            
-    #check when code is an string with three ?
-    assert collection.filter_by_code('???') == collection.name
 
 def test_sort_latest():
     #create a collection
