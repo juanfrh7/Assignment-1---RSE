@@ -314,3 +314,7 @@ class GlacierCollection:
         plt.title('Extreme glaciers in the collection')
         plt.legend()
         plt.savefig(output_path + 'plot_extremes.png')
+
+collection = GlacierCollection(filepath1)
+collection.read_mass_balance_data(filepath2)
+print(collection.filter_by_code('3??'))
