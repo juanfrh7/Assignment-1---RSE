@@ -1,5 +1,7 @@
 import pytest
 import glaciers
+import pathlib
+from pathlib import Path
 from glaciers import Glacier, GlacierCollection
 
 location = ''
@@ -75,6 +77,6 @@ def test_sort_latest():
     assert x[0].name == 'ARTESONRAJU'
 
     #check when reverse is true
-    x = collection.sort_by_latest_mass_balance(1, reverse = False)
-    assert x[0].name == 'STORSTEINSFJELLBREEN'
+    y = collection.sort_by_latest_mass_balance(1, reverse = False)
+    assert y[0].name == 'STORSTEINSFJELLBREEN'
     
