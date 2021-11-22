@@ -109,3 +109,55 @@ def test_wrong_lon_value():
     #create a glacier object with the variables
     with raises(ValueError, match =('The longitude is not within the accepted range')):
         Glacier(glacier_id, name, unit, lat, lon, code)
+
+def test_wrong_unit_length():
+    #define variables
+    glacier_id = '04392'
+    name = 'AGUA NEGRA'
+    unit = 'ARE'
+    lat = 30
+    lon = -63
+    code = 638
+
+    #create a glacier object with the variables
+    with raises(ValueError, match =("The unit should be a two charachter string")):
+        Glacier(glacier_id, name, unit, lat, lon, code)
+
+def test_wrong_unit_format():
+    #define variables
+    glacier_id = '04392'
+    name = 'AGUA NEGRA'
+    unit = 'ar'
+    lat = 30
+    lon = -63
+    code = 638
+
+    #create a glacier object with the variables
+    with raises(ValueError, match =("The unit should be in capital letters")):
+        Glacier(glacier_id, name, unit, lat, lon, code)
+
+def test_unit_type():
+    #define variables
+    glacier_id = '04392'
+    name = 'AGUA NEGRA'
+    unit = 18
+    lat = 30
+    lon = -63
+    code = 638
+
+    #create a glacier object with the variables
+    with raises(TypeError, match = ("unit should be a string")):
+        Glacier(glacier_id, name, unit, lat, lon, code)
+
+def test_id_type():
+    #define variables
+    glacier_id = 54392
+    name = 'AGUA NEGRA'
+    unit = 18
+    lat = 30
+    lon = -63
+    code = 638
+
+    #create a glacier object with the variables
+    with raises(TypeError, match = ("glacier id should be a string")):
+        Glacier(glacier_id, name, unit, lat, lon, code)

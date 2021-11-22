@@ -47,7 +47,7 @@ class Glacier:
                 raise ValueError("The unit should be in capital letters")
 
         if len(unit) != 2:
-            raise ValueError("The unit should be a two string")
+            raise ValueError("The unit should be a two charachter string")
 
     def add_mass_balance_measurement(self, year, mass_balance, boolean):
         """Add the mass balance measurements depending if its partial or total measurements"""
