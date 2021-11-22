@@ -42,27 +42,19 @@ def test_filter_code():
     collection.read_mass_balance_data(filepath2)
 
     #check when code is an integer
-    assert collection.filter_by_code(638) == ['AGUA NEGRA', 'BROWN SUPERIOR', 'CONCONTA NORTE', 'LAGO DEL DESIERTO I', 
-                                                'LAGO DEL DESIERTO II', 'LAGO DEL DESIERTO III', 'LOS AMARILLOS', 'POTRERILLOS', 
-                                                'TORTOLAS', 'AMARILLO', 'NINGCHAN GLACIER NO.1', 'VESTRE MEMURUBREEN']
+    assert collection.filter_by_code(638) == ['AGUA NEGRA', 'BROWN SUPERIOR', 'CONCONTA NORTE', 'LAGO DEL DESIERTO I', 'LAGO DEL DESIERTO II', 'LAGO DEL DESIERTO III', 'LOS AMARILLOS', 'POTRERILLOS', 'TORTOLAS', 'AMARILLO', 'NINGCHAN GLACIER NO.1', 'VESTRE MEMURUBREEN']
 
     #check when code is an string with no ?
-    assert collection.filter_by_code('638') == ['AGUA NEGRA', 'BROWN SUPERIOR', 'CONCONTA NORTE', 'LAGO DEL DESIERTO I', 
-                                                'LAGO DEL DESIERTO II', 'LAGO DEL DESIERTO III', 'LOS AMARILLOS', 'POTRERILLOS', 
-                                                'TORTOLAS', 'AMARILLO', 'NINGCHAN GLACIER NO.1', 'VESTRE MEMURUBREEN']
+    assert collection.filter_by_code('638') == ['AGUA NEGRA', 'BROWN SUPERIOR', 'CONCONTA NORTE', 'LAGO DEL DESIERTO I', 'LAGO DEL DESIERTO II', 'LAGO DEL DESIERTO III', 'LOS AMARILLOS', 'POTRERILLOS', 'TORTOLAS', 'AMARILLO', 'NINGCHAN GLACIER NO.1', 'VESTRE MEMURUBREEN']
 
     #check when code is an string with one ?
-    assert collection.filter_by_code('6?8') == ['AGUA NEGRA', 'BROWN SUPERIOR', 'CANITO', 'CONCONTA NORTE', 'LAGO DEL DESIERTO I', 
-                                                'LAGO DEL DESIERTO II', 'LAGO DEL DESIERTO III', 'LOS AMARILLOS', 'POTRERILLOS', 
-                                                'TORTOLAS', 'ADLER', 'PERS, VADRET', 'AMARILLO', 'TRONQUITOS', 'NINGCHAN GLACIER NO.1', 
-                                                'RULUNG', 'HALSJOKULL', 'BLAAISEN', 'VESTRE MEMURUBREEN']
+    assert collection.filter_by_code('6?8') == ['AGUA NEGRA', 'BROWN SUPERIOR', 'CANITO', 'CONCONTA NORTE', 'LAGO DEL DESIERTO I', 'LAGO DEL DESIERTO II', 'LAGO DEL DESIERTO III', 'LOS AMARILLOS', 'POTRERILLOS', 'TORTOLAS', 'ADLER', 'PERS, VADRET', 'AMARILLO', 'TRONQUITOS', 'NINGCHAN GLACIER NO.1', 'RULUNG', 'HALSJOKULL', 'BLAAISEN', 'VESTRE MEMURUBREEN']
 
     #check when code is an string with two ?
-    assert collection.filter_by_code('6??') == ['GRAN CAMPO NEVADO (GCN)', 'DRANGAJOKULL ICE CAP', 'EIRIKSJOKULL', 'EYJAFJALLAJOKULL', 
-                                                'HOFSJOKUL_EYSTRI', 'HOFSJOKULL ICE CAP', 'HRUTFELL', 'LANGJOKULL ICE CAP', 'MYRDALSJOKULL ICE CAP', 
-                                                'ORAEFAJOKULL', 'SNAEFELLSJOKULL', 'THRANDARJOKULL', 'TINDFJALLAJOKULL', 'TORFAJOKULL', 
-                                                'TUNGNAFELLSJOKULL', 'VATNAJOKULL', 'WESTERN VATNAJOKULL ICE CAP', 'MIDTRE FOLGEFONNA', 'NORDRE FOLGEFON', 
-                                                'COROPUNA']
+    assert collection.filter_by_code('3??') == ['GRAN CAMPO NEVADO (GCN)', 'DRANGAJOKULL ICE CAP', 'EIRIKSJOKULL', 'EYJAFJALLAJOKULL', 'HOFSJOKUL_EYSTRI', 'HOFSJOKULL ICE CAP', 'HRUTFELL', 'LANGJOKULL ICE CAP', 'MYRDALSJOKULL ICE CAP', 'ORAEFAJOKULL', 'SNAEFELLSJOKULL', 'THRANDARJOKULL', 'TINDFJALLAJOKULL', 'TORFAJOKULL', 'TUNGNAFELLSJOKULL', 'VATNAJOKULL', 'WESTERN VATNAJOKULL ICE CAP', 'MIDTRE FOLGEFONNA', 'NORDRE FOLGEFON', 'COROPUNA']
+                                            
+    #check when code is an string with three ?
+    assert collection.filter_by_code('???') == collection.name
 
 def test_sort_latest():
     #create a collection
@@ -77,3 +69,16 @@ def test_sort_latest():
     y = collection.sort_by_latest_mass_balance(1, reverse = False)
     assert y[0].name == 'STORSTEINSFJELLBREEN'
     
+#define negative tests
+def test_wrong_glacier_id_length():
+    #define variables
+    glacier_id = '01763'
+    name = 'Any name'
+    unit = 'FG'
+    lat = 300
+    lon = 39.87
+    code = 638
+
+    #create a glacier object with the variables
+    with pytest.raises(ValueError, match = ("The latitude is not within the accepted range [-90, 90]")):
+        Glacier(glacier_id, name, unit, lat, lon, code)
