@@ -32,6 +32,12 @@ class Glacier:
         if not isinstance(unit, str):
             raise TypeError("unit should be a string")
 
+        if not isinstance(lat, int) and not isinstance(lat, float):
+            raise TypeError("latitude should be a float or integer")
+
+        if not isinstance(lon, int) and not isinstance(lon, float):
+            raise TypeError("longitude should be a float or integer")
+
         #Raise value errors
         if len(self.glacier_id) != 5:
             raise ValueError("The Glacier ID should be a five digit string")
